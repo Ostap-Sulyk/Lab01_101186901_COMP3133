@@ -1,6 +1,3 @@
-// TODO 6 Filter data of Canada and write data to canada.txt
-// TODO 7 Filter data of United States and write data to usa.txt
-
 let fs = require('fs')
 let to_be_deleted = ["canada.txt", "usa.txt"]
 
@@ -21,8 +18,15 @@ function readCsv() {
 let data = readCsv().split("\r\n");
 const filter_data = (data, country_name) => data.filter(row => row.toLowerCase().includes(country_name))
 
-let us_data = filter_data(data, "united states")
-let canada_data = filter_data(data, "united states")
+const write_data_to_file = (file_name, data) => {
+    let str = data.map(row => row + "\n").join("")
+    fs.writeFile(file_name, str, (err ) => {
+        if (err) return console.error(err)
+    })
+}
 
-console.log(canada_data)
-console.log(us_data)
+let us_data = filter_data(data, "united states")
+let canada_data = filter_data(data, "canada")
+
+write_data_to_file("canada.txt", canada_data)
+write_data_to_file("usa.txt", us_data)
