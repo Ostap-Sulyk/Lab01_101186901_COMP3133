@@ -12,4 +12,17 @@ to_be_deleted.map(file_name => {
     }
 )
 
+function readCsv() {
+    const content = fs.readFileSync('./input_countries.csv');
+    return content.toString()
+}
 
+// turning data from csv to array of strings
+let data = readCsv().split("\r\n");
+const filter_data = (data, country_name) => data.filter(row => row.toLowerCase().includes(country_name))
+
+let us_data = filter_data(data, "united states")
+let canada_data = filter_data(data, "united states")
+
+console.log(canada_data)
+console.log(us_data)
